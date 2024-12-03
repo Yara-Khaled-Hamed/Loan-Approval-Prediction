@@ -449,13 +449,8 @@ elif option == 'ML':
                 user_input[column] = encoders[column].transform([encoders[column].classes_[0]])[0]
 
     # Scale the input data
-    user_input_transformed = sc.transform(user_input)
-
-    # Make the prediction
-    prediction = model.predict(user_input_transformed)
-
-    # Display prediction result
-    if prediction == 1:
-        st.subheader("Prediction: Loan Approved")
-    else:
-        st.subheader("Prediction: Loan Denied")
+    if st.sidebar.button("Predict Loan Status"):
+        user_input_transformed = sc.transform(user_input)
+        prediction = model.predict(user_input_transformed)
+        prediction_label = "Approved" if prediction == 1 else "Not Approved"
+        st.write(f"### Predicted Loan Status: {prediction_label}")
